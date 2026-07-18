@@ -2317,3 +2317,17 @@ h1, h2, h3, h4 {
         text-align: center;
     }
 }
+
+/* --- GLOBAL PAGE FADE TRANSITION --- */
+.page-enter {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

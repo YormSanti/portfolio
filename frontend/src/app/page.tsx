@@ -498,7 +498,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main>
+      <main className="page-enter">
         {/* Hero Section */}
         <section id="hero" className="hero-section" ref={heroRef}>
           {/* Giant Background Text */}

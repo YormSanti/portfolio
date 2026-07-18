@@ -212,7 +212,7 @@ export default function About() {
         </div>
       </header>
 
-      <main style={{ paddingTop: "120px" }}>
+      <main style={{ paddingTop: "120px" }} className="page-enter">
         {/* Intro Section */}
         <section className="section-container" style={{ marginBottom: "6rem" }}>
           <div className="section-header">
@@ -243,16 +243,43 @@ export default function About() {
               </div>
             </div>
 
-            {/* Right Card Panel */}
-            <div 
-              className="skills-inspector-card interactive-card"
-              onMouseMove={handleCardMouseMove}
-              style={{ "--active-color": "var(--accent-red)", padding: "2.5rem" } as React.CSSProperties}
-            >
-              <div className="inspector-card-glow"></div>
-              <h3 style={{ fontSize: "1.4rem", marginBottom: "1.5rem", position: "relative", zIndex: 2 }}>Core Philosophy</h3>
-              
-              <ul style={{ display: "flex", flexDirection: "column", gap: "1.5rem", position: "relative", zIndex: 2 }}>
+            {/* Right Column: Profile Image + Core Philosophy */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+              {/* Profile Avatar Card */}
+              <div 
+                className="skills-category-card interactive-card"
+                onMouseMove={handleCardMouseMove}
+                style={{ 
+                  "--category-color": "var(--accent-red)", 
+                  padding: "2rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                } as React.CSSProperties}
+              >
+                <div style={{ position: "relative", width: "100%", maxWidth: "260px", aspectRatio: "1/1" }}>
+                  <div className="hero-avatar-glow" style={{ position: "absolute", width: "100%", height: "100%" }}></div>
+                  <Image 
+                    src="/images/avatar.png" 
+                    alt="Yorm Santi" 
+                    className="hero-avatar-img" 
+                    fill
+                    sizes="260px"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Core Philosophy Card */}
+              <div 
+                className="skills-inspector-card interactive-card"
+                onMouseMove={handleCardMouseMove}
+                style={{ "--active-color": "var(--accent-red)", padding: "2.5rem" } as React.CSSProperties}
+              >
+                <div className="inspector-card-glow"></div>
+                <h3 style={{ fontSize: "1.4rem", marginBottom: "1.5rem", position: "relative", zIndex: 2 }}>Core Philosophy</h3>
+                
+                <ul style={{ display: "flex", flexDirection: "column", gap: "1.5rem", position: "relative", zIndex: 2 }}>
                 <li style={{ display: "flex", gap: "1rem", alignItems: "start" }}>
                   <i className="fa-solid fa-bolt" style={{ color: "var(--accent-red)", fontSize: "1.2rem", marginTop: "3px" }}></i>
                   <div>
@@ -277,7 +304,8 @@ export default function About() {
               </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* Journey Timeline Section */}
         <section className="section-container" style={{ marginBottom: "8rem" }}>
