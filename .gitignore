@@ -1,0 +1,15 @@
+# Dependencies
+frontend/node_modules/
+
+# Next.js Build Output
+frontend/.next/
+frontend/out/
+
+# Production Build Cache
+frontend/.next/cache/
+
+# OS/IDE files
+.DS_Store
+.vscode/
+.idea/
+.agents/
