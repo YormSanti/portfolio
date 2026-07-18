@@ -2208,6 +2208,10 @@ h1, h2, h3, h4 {
         grid-column: span 2;
         margin-bottom: 1.5rem;
     }
+    .responsive-about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+    }
 }
 
 @media (max-width: 768px) {

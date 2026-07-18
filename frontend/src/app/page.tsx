@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Project {
   id: string;
@@ -480,6 +481,7 @@ export default function Home() {
           </a>
           <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
             <a href="#hero" className={`nav-link ${activeSection === "hero" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Home</a>
+            <Link href="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             <a href="#skills" className={`nav-link ${activeSection === "skills" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Skills</a>
             <a href="#projects" className={`nav-link ${activeSection === "projects" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Projects</a>
             <a href="#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</a>
