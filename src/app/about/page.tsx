@@ -375,11 +375,55 @@ export default function About() {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="footer-container">
-          <p className="copyright">&copy; 2026 Yorm Santi. All rights reserved. Crafted with clean code.</p>
-          <div className="footer-links">
-            <Link href="/about">Back to top <i className="fa-solid fa-arrow-up"></i></Link>
+        <div className="footer-container footer-grid">
+          {/* Brand & Contact */}
+          <div className="footer-brand">
+            <span className="footer-logo">YORM SANTI</span>
+            <p className="footer-tagline">Designing and building stylish, user-focused web applications and mobile experiences.</p>
+            <div className="footer-contact-info">
+              <a href="mailto:yormsanti38@gmail.com" className="footer-contact-link">
+                <i className="fa-solid fa-envelope"></i> yormsanti38@gmail.com
+              </a>
+              <a href="tel:011256124" className="footer-contact-link">
+                <i className="fa-solid fa-phone"></i> 011256124
+              </a>
+            </div>
           </div>
+          
+          {/* Navigation Links */}
+          <div className="footer-nav">
+            <h4>Navigation</h4>
+            <ul>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/about">About Me</Link></li>
+              <li><Link href="/#skills">Skills</Link></li>
+              <li><Link href="/#projects">Projects</Link></li>
+            </ul>
+          </div>
+          
+          {/* Socials & Status */}
+          <div className="footer-status">
+            <div className="footer-status-badge">
+              <span className="pulse-dot"></span>
+              <span>Available for Hire</span>
+            </div>
+            <div className="footer-socials">
+              <a href="https://github.com/YormSanti" target="_blank" rel="noreferrer" aria-label="GitHub">
+                <i className="fa-brands fa-github"></i>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <i className="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:yormsanti38@gmail.com" aria-label="Email">
+                <i className="fa-solid fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <p className="copyright">&copy; 2026 Yorm Santi. All rights reserved. Crafted with clean code.</p>
+          <Link href="/about" className="back-to-top">Back to top <i className="fa-solid fa-arrow-up"></i></Link>
         </div>
       </footer>
     </>
