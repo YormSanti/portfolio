@@ -250,7 +250,7 @@ export default function About() {
               style={{ "--active-color": "var(--accent-red)", padding: "2.5rem" } as React.CSSProperties}
             >
               <div className="inspector-card-glow"></div>
-              <h3 style={{ fontSize: "1.4rem", marginBottom: "1.5rem", position: "relative", z-index: 2 }}>Core Philosophy</h3>
+              <h3 style={{ fontSize: "1.4rem", marginBottom: "1.5rem", position: "relative", zIndex: 2 }}>Core Philosophy</h3>
               
               <ul style={{ display: "flex", flexDirection: "column", gap: "1.5rem", position: "relative", zIndex: 2 }}>
                 <li style={{ display: "flex", gap: "1rem", alignItems: "start" }}>
