@@ -232,6 +232,48 @@ const SKILLS_DATA: { category: string; icon: string; items: SkillItem[] }[] = [
         icon: "fa-brands fa-docker"
       }
     ]
+  },
+  {
+    category: "Design & Tooling",
+    icon: "fa-solid fa-compass-drafting",
+    items: [
+      {
+        name: "Tailwind CSS",
+        percentage: 92,
+        description: "Utility-first design systems, responsive layouts, dark mode states, and glassmorphic micro-interactions.",
+        subskills: ["Utility Classes", "Custom Plugins", "Design Tokens", "Dark Mode", "JIT Compiler"],
+        projects: ["Nexa AI Analytics Dashboard"],
+        color: "hsl(198, 93%, 60%)",
+        icon: "fa-solid fa-wind"
+      },
+      {
+        name: "Node.js & Express",
+        percentage: 88,
+        description: "Event-driven backend microservices, RESTful endpoints, middleware architecture, and WebSocket connections.",
+        subskills: ["Express.js", "Event Loop", "JWT Auth", "Streams & Buffers", "WebSockets"],
+        projects: ["Nexa AI Analytics Dashboard"],
+        color: "hsl(120, 48%, 54%)",
+        icon: "fa-brands fa-node-js"
+      },
+      {
+        name: "Git & Version Control",
+        percentage: 95,
+        description: "Collaborative branch management, rebase workflows, release tagging, pull request code reviews, and CI/CD.",
+        subskills: ["Git Rebase & Merge", "GitHub Actions", "Semantic Versioning", "Branching Models"],
+        projects: ["Nexa AI Analytics Dashboard", "Odyssey Immersive Travel Guide"],
+        color: "hsl(9, 100%, 62%)",
+        icon: "fa-brands fa-git-alt"
+      },
+      {
+        name: "Figma & UI/UX Design",
+        percentage: 89,
+        description: "Transforming product visions into high-fidelity UI component libraries, design systems, and interactive user flows.",
+        subskills: ["Auto-Layout", "Design Systems", "Interactive Prototypes", "Component Libraries"],
+        projects: ["Odyssey Immersive Travel Guide", "Aura Automotive Configurator"],
+        color: "hsl(340, 82%, 52%)",
+        icon: "fa-brands fa-figma"
+      }
+    ]
   }
 ];
 
@@ -503,6 +545,10 @@ export default function Home() {
     if (techName === "Riverpod / Bloc") filterKey = "Riverpod";
     if (techName === "Custom UI Canvas") filterKey = "Three.js";
     if (techName === "Docker / Database / CD") filterKey = "Docker";
+    if (techName === "Tailwind CSS") filterKey = "Vanilla CSS";
+    if (techName === "Node.js & Express") filterKey = "TypeScript";
+    if (techName === "Git & Version Control") filterKey = "Docker";
+    if (techName === "Figma & UI/UX Design") filterKey = "Flutter";
     
     setActiveFilter(filterKey);
     const projectsSection = document.getElementById("projects");
