@@ -277,6 +277,32 @@ const SKILLS_DATA: { category: string; icon: string; items: SkillItem[] }[] = [
   }
 ];
 
+interface TechBadge {
+  name: string;
+  icon: string;
+  isCustomText?: string;
+}
+
+const TECH_BADGES: TechBadge[] = [
+  { name: "C", icon: "fa-solid fa-c", isCustomText: "C" },
+  { name: "C++", icon: "fa-solid fa-code", isCustomText: "C++" },
+  { name: "Java", icon: "fa-brands fa-java" },
+  { name: "Python", icon: "fa-brands fa-python" },
+  { name: "JavaScript", icon: "fa-brands fa-js" },
+  { name: "React", icon: "fa-brands fa-react" },
+  { name: "Next.js", icon: "fa-solid fa-n", isCustomText: "N" },
+  { name: "Tailwind", icon: "fa-solid fa-wind" },
+  { name: "Node.js", icon: "fa-brands fa-node-js" },
+  { name: "SQL", icon: "fa-solid fa-database" },
+  { name: "PostgreSQL", icon: "fa-solid fa-server" },
+  { name: "MongoDB", icon: "fa-solid fa-leaf" },
+  { name: "JUnit", icon: "fa-solid fa-vial" },
+  { name: "JMeter", icon: "fa-solid fa-gauge-high" },
+  { name: "Git", icon: "fa-brands fa-git-alt" },
+  { name: "GitHub", icon: "fa-brands fa-github" },
+  { name: "Docker", icon: "fa-brands fa-docker" }
+];
+
 export default function Home() {
   // State variables
   const projects = FALLBACK_PROJECTS;
@@ -289,6 +315,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("hero");
   const statusText = "Available for Freelance & Contracts";
   const [selectedSkill, setSelectedSkill] = useState<SkillItem>(SKILLS_DATA[0].items[0]);
+  const [selectedTechCard, setSelectedTechCard] = useState<string>("C");
   
   // Contact Form State
   const [formName, setFormName] = useState("");
@@ -918,6 +945,39 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* High-Contrast Interactive Tech Skill Grid (Matching User Reference) */}
+            <div className="tech-badge-grid-wrapper">
+              <div className="tech-grid-header">
+                <span className="section-subtitle">Tech Stack Grid</span>
+                <h3 className="tech-grid-title">Technologies & Frameworks</h3>
+              </div>
+              <div className="tech-badge-grid">
+                {TECH_BADGES.map((badge) => {
+                  const isSelected = selectedTechCard === badge.name;
+                  return (
+                    <button
+                      key={badge.name}
+                      type="button"
+                      className={`tech-badge-card ${isSelected ? "active" : ""}`}
+                      onClick={() => {
+                        setSelectedTechCard(badge.name);
+                        handleSelectTechFilter(badge.name);
+                      }}
+                    >
+                      <div className="tech-badge-icon-box">
+                        {badge.isCustomText ? (
+                          <span className="tech-custom-text-icon">{badge.isCustomText}</span>
+                        ) : (
+                          <i className={badge.icon}></i>
+                        )}
+                      </div>
+                      <span className="tech-badge-name">{badge.name}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

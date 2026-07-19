@@ -2223,6 +2223,93 @@ h1, h2, h3, h4 {
     margin-top: 4px;
 }
 
+/* --- TECH BADGES GRID (Inspired by Skill Grid design) --- */
+.tech-badge-grid-wrapper {
+    margin-top: 4.5rem;
+    padding-top: 3.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.tech-grid-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.tech-grid-title {
+    font-size: 1.8rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-top: 0.25rem;
+}
+
+.tech-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.25rem;
+    justify-content: center;
+}
+
+.tech-badge-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.6rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.tech-badge-icon-box {
+    font-size: 2.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast);
+}
+
+.tech-custom-text-icon {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2.1rem;
+    line-height: 1;
+}
+
+.tech-badge-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    letter-spacing: 0.01em;
+}
+
+/* Hover & Active inverted black/white card style matching reference screenshot */
+.tech-badge-card:hover,
+.tech-badge-card.active {
+    background: #ffffff;
+    border-color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2), var(--glow-red);
+}
+
+.tech-badge-card:hover .tech-badge-icon-box,
+.tech-badge-card.active .tech-badge-icon-box,
+.tech-badge-card:hover .tech-badge-name,
+.tech-badge-card.active .tech-badge-name,
+.tech-badge-card:hover .tech-custom-text-icon,
+.tech-badge-card.active .tech-custom-text-icon {
+    color: #000000;
+}
+
 /* Custom Scrollbar for Modal and Body */
 ::-webkit-scrollbar {
     width: 6px;
