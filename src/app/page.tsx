@@ -248,7 +248,7 @@ export default function Home() {
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop;
+          const top = el.getBoundingClientRect().top + window.scrollY;
           if (window.scrollY >= (top - 150)) {
             currentSection = section;
           }
@@ -351,12 +351,11 @@ export default function Home() {
     const handleResize = () => {
       activeCanvas.width = window.innerWidth;
       activeCanvas.height = window.innerHeight;
-      if (window.innerWidth < 768) {
-        maxParticles = 30;
-        connectionDistance = 80;
-      } else {
-        maxParticles = 65;
-        connectionDistance = 110;
+      const targetCount = window.innerWidth < 768 ? 30 : 65;
+      connectionDistance = window.innerWidth < 768 ? 80 : 110;
+      if (maxParticles !== targetCount || particles.length === 0) {
+        maxParticles = targetCount;
+        particles = Array.from({ length: maxParticles }, () => new Particle());
       }
     };
     handleResize();
@@ -367,8 +366,6 @@ export default function Home() {
       mouse.y = e.clientY;
     };
     window.addEventListener("mousemove", handleMouseMove);
-
-    particles = Array.from({ length: maxParticles }, () => new Particle());
 
     let animationFrameId: number;
     const draw = () => {

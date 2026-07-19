@@ -144,7 +144,7 @@ export default function About() {
     }
 
     let particles: Particle[] = [];
-    let maxParticles = 50;
+    const maxParticles = 50;
 
     const handleResize = () => {
       activeCanvas.width = window.innerWidth;
@@ -194,11 +194,11 @@ export default function About() {
             <span className="nav-brand-subtitle">WEB DEVELOPER & CREATOR</span>
           </Link>
           <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/about" className="nav-link active">About</Link>
-            <Link href="/#skills" className="nav-link">Skills</Link>
-            <Link href="/#projects" className="nav-link">Projects</Link>
-            <Link href="/#contact" className="nav-link btn-contact-nav">Contact</Link>
+            <Link href="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
+            <Link href="/about" className="nav-link active" onClick={() => setIsMenuOpen(false)}>About</Link>
+            <Link href="/#skills" className="nav-link" onClick={() => setIsMenuOpen(false)}>Skills</Link>
+            <Link href="/#projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>Projects</Link>
+            <Link href="/#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           </nav>
           <div className="nav-availability-badge">
             <span>AVAILABLE FOR HIRE</span>
@@ -423,7 +423,7 @@ export default function About() {
         
         <div className="footer-bottom">
           <p className="copyright">&copy; 2026 Yorm Santi. All rights reserved. Crafted with clean code.</p>
-          <Link href="/about" className="back-to-top">Back to top <i className="fa-solid fa-arrow-up"></i></Link>
+          <a href="#" className="back-to-top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Back to top <i className="fa-solid fa-arrow-up"></i></a>
         </div>
       </footer>
     </>
