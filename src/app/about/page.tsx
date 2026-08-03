@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
+import SmartAvatar from "@/components/SmartAvatar";
 
 interface JourneyItem {
   year: string;
@@ -199,10 +201,18 @@ export default function About() {
             <Link href="/#skills" className="nav-link" onClick={() => setIsMenuOpen(false)}>Skills</Link>
             <Link href="/#projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>Projects</Link>
             <Link href="/#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+            <div className="mobile-theme-toggle-wrapper" style={{ marginTop: "1rem" }}>
+              <ThemeToggle />
+            </div>
           </nav>
-          <div className="nav-availability-badge">
-            <span>AVAILABLE FOR HIRE</span>
-            <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div className="nav-availability-badge">
+              <span>AVAILABLE FOR HIRE</span>
+              <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+            </div>
+            <div className="desktop-theme-toggle-wrapper">
+              <ThemeToggle />
+            </div>
           </div>
           <button className={`menu-toggle ${isMenuOpen ? "active" : ""}`} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
             <span className="bar"></span>
@@ -259,13 +269,11 @@ export default function About() {
               >
                 <div style={{ position: "relative", width: "100%", maxWidth: "260px", aspectRatio: "1/1" }}>
                   <div className="hero-avatar-glow" style={{ position: "absolute", width: "100%", height: "100%" }}></div>
-                  <Image 
+                  <SmartAvatar 
                     src="/images/avatar.png" 
                     alt="Yorm Santi" 
                     className="hero-avatar-img" 
-                    fill
-                    sizes="260px"
-                    priority
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
                   />
                 </div>
               </div>
