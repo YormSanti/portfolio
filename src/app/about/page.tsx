@@ -197,15 +197,15 @@ export default function About() {
           </Link>
           <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
             <Link href="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <Link href="/about" className="nav-link active" onClick={() => setIsMenuOpen(false)}>About</Link>
             <Link href="/#skills" className="nav-link" onClick={() => setIsMenuOpen(false)}>Skills</Link>
             <Link href="/#projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>Projects</Link>
+            <Link href="/about" className="nav-link active" onClick={() => setIsMenuOpen(false)}>About</Link>
             <Link href="/#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <div className="mobile-theme-toggle-wrapper" style={{ marginTop: "1rem" }}>
               <ThemeToggle />
             </div>
           </nav>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div className="nav-right-actions">
             <div className="nav-availability-badge">
               <span>AVAILABLE FOR HIRE</span>
               <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
@@ -403,9 +403,9 @@ export default function About() {
             <h4>Navigation</h4>
             <ul>
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About Me</Link></li>
               <li><Link href="/#skills">Skills</Link></li>
               <li><Link href="/#projects">Projects</Link></li>
+              <li><Link href="/about">About Me</Link></li>
             </ul>
           </div>
           

@@ -356,13 +356,22 @@ export default function Home() {
 
       // Active menu section selection
       const sections = ["hero", "skills", "projects", "contact"];
+      const scrollPosition = window.scrollY + 220;
       let currentSection = "hero";
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY;
-          if (window.scrollY >= (top - 150)) {
-            currentSection = section;
+
+      // Check if near bottom of page for contact section
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        currentSection = "contact";
+      } else {
+        for (const sectionId of sections) {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              currentSection = sectionId;
+              break;
+            }
           }
         }
       }
@@ -600,15 +609,15 @@ export default function Home() {
           </a>
           <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
             <a href="#hero" className={`nav-link ${activeSection === "hero" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Home</a>
-            <Link href="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             <a href="#skills" className={`nav-link ${activeSection === "skills" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Skills</a>
             <a href="#projects" className={`nav-link ${activeSection === "projects" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Projects</a>
+            <Link href="/about" className="nav-link" onClick={() => setIsMenuOpen(false)}>About</Link>
             <a href="#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</a>
             <div className="mobile-theme-toggle-wrapper" style={{ marginTop: "1rem" }}>
               <ThemeToggle />
             </div>
           </nav>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div className="nav-right-actions">
             <div className="nav-availability-badge">
               <span>{statusText.toUpperCase()}</span>
               <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
@@ -689,77 +698,6 @@ export default function Home() {
           <div className="scroll-indicator">
             <span className="scroll-mouse"><span className="scroll-wheel"></span></span>
             <span className="scroll-text">Scroll Down</span>
-          </div>
-        </section>
-
-        {/* Selected Projects Section */}
-        <section id="projects" className="projects-section scroll-reveal">
-          <div className="section-container">
-            <div className="projects-section-header">
-              <h2 className="projects-section-title">SELECTED PROJECTS</h2>
-              <button type="button" className="projects-view-all" onClick={() => setActiveFilter("all")}>
-                VIEW ALL PROJECTS <i className="fa-solid fa-arrow-right-long"></i>
-              </button>
-            </div>
-            
-            <div className="projects-filter-bar" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '3rem' }}>
-              <button type="button" className={`filter-tag ${activeFilter === "all" ? "active" : ""}`} onClick={() => setActiveFilter("all")}>ALL</button>
-              <button type="button" className={`filter-tag ${activeFilter === "web" ? "active" : ""}`} onClick={() => setActiveFilter("web")}>WEB APPS</button>
-              <button type="button" className={`filter-tag ${activeFilter === "mobile" ? "active" : ""}`} onClick={() => setActiveFilter("mobile")}>FLUTTER APPS</button>
-              {Array.from(new Set(projects.flatMap(p => p.stack))).map((tech) => (
-                <button
-                  key={tech}
-                  type="button"
-                  className={`filter-tag ${activeFilter.toLowerCase() === tech.toLowerCase() ? "active" : ""}`}
-                  onClick={() => handleToggleFilter(tech)}
-                >
-                  {tech}
-                </button>
-              ))}
-            </div>
-
-            <div className="projects-display-grid">
-              {projects
-                .filter((p) => {
-                  if (activeFilter === "all") return true;
-                  if (activeFilter === "web") {
-                    return p.category.toLowerCase().includes("web") || p.stack.includes("Next.js") || p.stack.includes("React");
-                  }
-                  if (activeFilter === "mobile") {
-                    return p.category.toLowerCase().includes("mobile") || p.stack.includes("Flutter");
-                  }
-                  return p.stack.some(tech => 
-                    tech.toLowerCase().includes(activeFilter.toLowerCase()) || 
-                    activeFilter.toLowerCase().includes(tech.toLowerCase())
-                  );
-                })
-                .map((p, idx) => (
-                  <article key={p.id} className="project-display-card interactive-card" onMouseMove={handleCardMouseMove}>
-                    <div className="project-display-img-wrapper" onClick={() => handleOpenProject(p)}>
-                      <Image 
-                        src={p.image} 
-                        alt={p.title} 
-                        width={600} 
-                        height={400} 
-                        className="project-display-img" 
-                      />
-                      <div className="project-display-overlay">
-                        <span className="btn-view-details">VIEW DETAILS</span>
-                      </div>
-                    </div>
-                    <div className="project-display-meta">
-                      <div className="project-display-index">0{idx + 1}</div>
-                      <div className="project-display-info-group">
-                        <h3 className="project-display-title" onClick={() => handleOpenProject(p)}>{p.title}</h3>
-                        <span className="project-display-category">{p.category}</span>
-                      </div>
-                      <button type="button" className="project-display-link-arrow" onClick={() => handleOpenProject(p)}>
-                        <i className="fa-solid fa-arrow-right-long"></i>
-                      </button>
-                    </div>
-                  </article>
-                ))}
-            </div>
           </div>
         </section>
 
@@ -986,6 +924,77 @@ export default function Home() {
                   );
                 })}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Selected Projects Section */}
+        <section id="projects" className="projects-section scroll-reveal">
+          <div className="section-container">
+            <div className="projects-section-header">
+              <h2 className="projects-section-title">SELECTED PROJECTS</h2>
+              <button type="button" className="projects-view-all" onClick={() => setActiveFilter("all")}>
+                VIEW ALL PROJECTS <i className="fa-solid fa-arrow-right-long"></i>
+              </button>
+            </div>
+            
+            <div className="projects-filter-bar" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '3rem' }}>
+              <button type="button" className={`filter-tag ${activeFilter === "all" ? "active" : ""}`} onClick={() => setActiveFilter("all")}>ALL</button>
+              <button type="button" className={`filter-tag ${activeFilter === "web" ? "active" : ""}`} onClick={() => setActiveFilter("web")}>WEB APPS</button>
+              <button type="button" className={`filter-tag ${activeFilter === "mobile" ? "active" : ""}`} onClick={() => setActiveFilter("mobile")}>FLUTTER APPS</button>
+              {Array.from(new Set(projects.flatMap(p => p.stack))).map((tech) => (
+                <button
+                  key={tech}
+                  type="button"
+                  className={`filter-tag ${activeFilter.toLowerCase() === tech.toLowerCase() ? "active" : ""}`}
+                  onClick={() => handleToggleFilter(tech)}
+                >
+                  {tech}
+                </button>
+              ))}
+            </div>
+
+            <div className="projects-display-grid">
+              {projects
+                .filter((p) => {
+                  if (activeFilter === "all") return true;
+                  if (activeFilter === "web") {
+                    return p.category.toLowerCase().includes("web") || p.stack.includes("Next.js") || p.stack.includes("React");
+                  }
+                  if (activeFilter === "mobile") {
+                    return p.category.toLowerCase().includes("mobile") || p.stack.includes("Flutter");
+                  }
+                  return p.stack.some(tech => 
+                    tech.toLowerCase().includes(activeFilter.toLowerCase()) || 
+                    activeFilter.toLowerCase().includes(tech.toLowerCase())
+                  );
+                })
+                .map((p, idx) => (
+                  <article key={p.id} className="project-display-card interactive-card" onMouseMove={handleCardMouseMove}>
+                    <div className="project-display-img-wrapper" onClick={() => handleOpenProject(p)}>
+                      <Image 
+                        src={p.image} 
+                        alt={p.title} 
+                        width={600} 
+                        height={400} 
+                        className="project-display-img" 
+                      />
+                      <div className="project-display-overlay">
+                        <span className="btn-view-details">VIEW DETAILS</span>
+                      </div>
+                    </div>
+                    <div className="project-display-meta">
+                      <div className="project-display-index">0{idx + 1}</div>
+                      <div className="project-display-info-group">
+                        <h3 className="project-display-title" onClick={() => handleOpenProject(p)}>{p.title}</h3>
+                        <span className="project-display-category">{p.category}</span>
+                      </div>
+                      <button type="button" className="project-display-link-arrow" onClick={() => handleOpenProject(p)}>
+                        <i className="fa-solid fa-arrow-right-long"></i>
+                      </button>
+                    </div>
+                  </article>
+                ))}
             </div>
           </div>
         </section>
@@ -1241,9 +1250,9 @@ export default function Home() {
             <h4>Navigation</h4>
             <ul>
               <li><a href="#hero">Home</a></li>
-              <li><Link href="/about">About Me</Link></li>
               <li><a href="#skills">Skills</a></li>
               <li><a href="#projects">Projects</a></li>
+              <li><Link href="/about">About Me</Link></li>
             </ul>
           </div>
           
