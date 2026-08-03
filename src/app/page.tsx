@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
+import SmartAvatar from "@/components/SmartAvatar";
 
 interface Project {
   id: string;
@@ -602,10 +604,18 @@ export default function Home() {
             <a href="#skills" className={`nav-link ${activeSection === "skills" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Skills</a>
             <a href="#projects" className={`nav-link ${activeSection === "projects" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Projects</a>
             <a href="#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <div className="mobile-theme-toggle-wrapper" style={{ marginTop: "1rem" }}>
+              <ThemeToggle />
+            </div>
           </nav>
-          <div className="nav-availability-badge">
-            <span>{statusText.toUpperCase()}</span>
-            <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div className="nav-availability-badge">
+              <span>{statusText.toUpperCase()}</span>
+              <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+            </div>
+            <div className="desktop-theme-toggle-wrapper">
+              <ThemeToggle />
+            </div>
           </div>
           <button className={`menu-toggle ${isMenuOpen ? "active" : ""}`} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
             <span className="bar"></span>
@@ -643,13 +653,10 @@ export default function Home() {
             <div className="hero-col-center fade-in-up" id="hero-avatar-showcase">
               <div className="hero-avatar-wrapper">
                 <div className="hero-avatar-glow"></div>
-                <Image 
+                <SmartAvatar 
                   src="/images/avatar.png" 
                   alt="Yorm Santi - Portrait" 
                   className="hero-avatar-img" 
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
-                  priority
                 />
               </div>
             </div>
