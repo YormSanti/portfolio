@@ -3,13 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
+import SmartAvatar from "@/components/SmartAvatar";
 
 interface Project {
   id: string;
   title: string;
   category: string;
   image: string;
+  gallery: string[];
   description: string;
+  features: string[];
+  highlights: { label: string; value: string }[];
   client: string;
   date: string;
   stack: string[];
@@ -34,36 +39,72 @@ const FALLBACK_PROJECTS: Project[] = [
     title: "Nexa AI Analytics Dashboard",
     category: "Web Application",
     image: "/images/dashboard.jpg",
+    gallery: ["/images/dashboard.jpg", "/images/web3d.jpg", "/images/mobile.jpg"],
     description: "Nexa is an immersive SaaS analytics platform mapping complex artificial intelligence infrastructure. Built for enterprise devops and ML engineers, Nexa displays GPU utilization, token counts, system temperature, API request volumes, and active billing tiers in real time.",
+    features: [
+      "Real-time GPU metric streaming over WebSockets",
+      "Dynamic interactive charts built with Chart.js & D3",
+      "Multi-tenant RBAC access control dashboard",
+      "Automated alerting rules & threshold monitoring"
+    ],
+    highlights: [
+      { label: "Performance", value: "99 / 100" },
+      { label: "Stream Latency", value: "< 15 ms" },
+      { label: "Active Nodes", value: "500+" }
+    ],
     client: "Nexa Corp Inc.",
     date: "June 2025",
     stack: ["Next.js", "TypeScript", "Chart.js", "Vanilla CSS", "Docker"],
-    demo: "#",
-    repo: "#"
+    demo: "https://yormsanti.design",
+    repo: "https://github.com/YormSanti"
   },
   {
     id: "2",
     title: "Odyssey Immersive Travel Guide",
     category: "Mobile Application",
     image: "/images/mobile.jpg",
+    gallery: ["/images/mobile.jpg", "/images/dashboard.jpg", "/images/web3d.jpg"],
     description: "Odyssey transforms typical travel planning into a sensory interactive story. Designed for tablets and mobile devices, Odyssey acts as a digital curator, using high-definition imagery and regional soundscapes to map historical sites. The app UI is built entirely in Flutter, utilizing Riverpod for state management.",
+    features: [
+      "Location-aware offline map tiles & GPS waypoints",
+      "Bespoke audio engine with ambient soundscape mixing",
+      "Interactive 3D landmark viewer with touch gestures",
+      "Social itinerary sharing & trip planning timeline"
+    ],
+    highlights: [
+      { label: "App Store Rating", value: "4.9 ★" },
+      { label: "Frame Rate", value: "60 FPS" },
+      { label: "Downloads", value: "100k+" }
+    ],
     client: "Odyssey Travel Ltd.",
     date: "Feb 2024",
     stack: ["Flutter", "Dart", "Riverpod", "Lottie"],
-    demo: "#",
-    repo: "#"
+    demo: "https://yormsanti.design",
+    repo: "https://github.com/YormSanti"
   },
   {
     id: "3",
     title: "Aura Automotive Configurator",
     category: "Flutter Web App",
     image: "/images/web3d.jpg",
+    gallery: ["/images/web3d.jpg", "/images/mobile.jpg", "/images/dashboard.jpg"],
     description: "Aura Automotive is an elite vehicle configurator allowing luxury buyers to customize electric sports cars. Integrated with a Flutter Web framework, users customize body materials, paint reflections, wheel rims, and interior stitching in real time.",
+    features: [
+      "Real-time WebGL material rendering & PBR shaders",
+      "360-degree vehicle interior & exterior camera rotation",
+      "Instant price calculation based on custom trims",
+      "High-resolution PDF build sheet exporter"
+    ],
+    highlights: [
+      { label: "Render Engine", value: "Three.js / WebGL" },
+      { label: "Paint Options", value: "24 Custom Trims" },
+      { label: "Conversion Rate", value: "+38%" }
+    ],
     client: "Aura Motors LLC",
     date: "November 2024",
     stack: ["Flutter", "Dart", "Three.js", "WebGL"],
-    demo: "#",
-    repo: "#"
+    demo: "https://yormsanti.design",
+    repo: "https://github.com/YormSanti"
   }
 ];
 
@@ -193,7 +234,75 @@ const SKILLS_DATA: { category: string; icon: string; items: SkillItem[] }[] = [
         icon: "fa-brands fa-docker"
       }
     ]
+  },
+  {
+    category: "Design & Tooling",
+    icon: "fa-solid fa-compass-drafting",
+    items: [
+      {
+        name: "Tailwind CSS",
+        percentage: 92,
+        description: "Utility-first design systems, responsive layouts, dark mode states, and glassmorphic micro-interactions.",
+        subskills: ["Utility Classes", "Custom Plugins", "Design Tokens", "Dark Mode", "JIT Compiler"],
+        projects: ["Nexa AI Analytics Dashboard"],
+        color: "hsl(198, 93%, 60%)",
+        icon: "fa-solid fa-wind"
+      },
+      {
+        name: "Node.js & Express",
+        percentage: 88,
+        description: "Event-driven backend microservices, RESTful endpoints, middleware architecture, and WebSocket connections.",
+        subskills: ["Express.js", "Event Loop", "JWT Auth", "Streams & Buffers", "WebSockets"],
+        projects: ["Nexa AI Analytics Dashboard"],
+        color: "hsl(120, 48%, 54%)",
+        icon: "fa-brands fa-node-js"
+      },
+      {
+        name: "Git & Version Control",
+        percentage: 95,
+        description: "Collaborative branch management, rebase workflows, release tagging, pull request code reviews, and CI/CD.",
+        subskills: ["Git Rebase & Merge", "GitHub Actions", "Semantic Versioning", "Branching Models"],
+        projects: ["Nexa AI Analytics Dashboard", "Odyssey Immersive Travel Guide"],
+        color: "hsl(9, 100%, 62%)",
+        icon: "fa-brands fa-git-alt"
+      },
+      {
+        name: "Figma & UI/UX Design",
+        percentage: 89,
+        description: "Transforming product visions into high-fidelity UI component libraries, design systems, and interactive user flows.",
+        subskills: ["Auto-Layout", "Design Systems", "Interactive Prototypes", "Component Libraries"],
+        projects: ["Odyssey Immersive Travel Guide", "Aura Automotive Configurator"],
+        color: "hsl(340, 82%, 52%)",
+        icon: "fa-brands fa-figma"
+      }
+    ]
   }
+];
+
+interface TechBadge {
+  name: string;
+  icon: string;
+  isCustomText?: string;
+}
+
+const TECH_BADGES: TechBadge[] = [
+  { name: "C", icon: "fa-solid fa-c", isCustomText: "C" },
+  { name: "C++", icon: "fa-solid fa-code", isCustomText: "C++" },
+  { name: "Java", icon: "fa-brands fa-java" },
+  { name: "Python", icon: "fa-brands fa-python" },
+  { name: "JavaScript", icon: "fa-brands fa-js" },
+  { name: "React", icon: "fa-brands fa-react" },
+  { name: "Next.js", icon: "fa-solid fa-n", isCustomText: "N" },
+  { name: "Tailwind", icon: "fa-solid fa-wind" },
+  { name: "Node.js", icon: "fa-brands fa-node-js" },
+  { name: "SQL", icon: "fa-solid fa-database" },
+  { name: "PostgreSQL", icon: "fa-solid fa-server" },
+  { name: "MongoDB", icon: "fa-solid fa-leaf" },
+  { name: "JUnit", icon: "fa-solid fa-vial" },
+  { name: "JMeter", icon: "fa-solid fa-gauge-high" },
+  { name: "Git", icon: "fa-brands fa-git-alt" },
+  { name: "GitHub", icon: "fa-brands fa-github" },
+  { name: "Docker", icon: "fa-brands fa-docker" }
 ];
 
 export default function Home() {
@@ -201,11 +310,14 @@ export default function Home() {
   const projects = FALLBACK_PROJECTS;
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+  const [activeModalTab, setActiveModalTab] = useState<"overview" | "features">("overview");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
   const statusText = "Available for Freelance & Contracts";
   const [selectedSkill, setSelectedSkill] = useState<SkillItem>(SKILLS_DATA[0].items[0]);
+  const [selectedTechCard, setSelectedTechCard] = useState<string>("C");
   
   // Contact Form State
   const [formName, setFormName] = useState("");
@@ -403,6 +515,12 @@ export default function Home() {
     };
   }, []);
 
+  const handleOpenProject = (proj: Project) => {
+    setActiveProject(proj);
+    setActiveImageIndex(0);
+    setActiveModalTab("overview");
+  };
+
   // --- Handle Contact Form Submission (Simulated Client-Side) ---
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -456,6 +574,10 @@ export default function Home() {
     if (techName === "Riverpod / Bloc") filterKey = "Riverpod";
     if (techName === "Custom UI Canvas") filterKey = "Three.js";
     if (techName === "Docker / Database / CD") filterKey = "Docker";
+    if (techName === "Tailwind CSS") filterKey = "Vanilla CSS";
+    if (techName === "Node.js & Express") filterKey = "TypeScript";
+    if (techName === "Git & Version Control") filterKey = "Docker";
+    if (techName === "Figma & UI/UX Design") filterKey = "Flutter";
     
     setActiveFilter(filterKey);
     const projectsSection = document.getElementById("projects");
@@ -482,10 +604,18 @@ export default function Home() {
             <a href="#skills" className={`nav-link ${activeSection === "skills" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Skills</a>
             <a href="#projects" className={`nav-link ${activeSection === "projects" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Projects</a>
             <a href="#contact" className="nav-link btn-contact-nav" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <div className="mobile-theme-toggle-wrapper" style={{ marginTop: "1rem" }}>
+              <ThemeToggle />
+            </div>
           </nav>
-          <div className="nav-availability-badge">
-            <span>{statusText.toUpperCase()}</span>
-            <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div className="nav-availability-badge">
+              <span>{statusText.toUpperCase()}</span>
+              <i className="fa-solid fa-star-of-life text-red animate-spin-slow"></i>
+            </div>
+            <div className="desktop-theme-toggle-wrapper">
+              <ThemeToggle />
+            </div>
           </div>
           <button className={`menu-toggle ${isMenuOpen ? "active" : ""}`} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
             <span className="bar"></span>
@@ -523,13 +653,10 @@ export default function Home() {
             <div className="hero-col-center fade-in-up" id="hero-avatar-showcase">
               <div className="hero-avatar-wrapper">
                 <div className="hero-avatar-glow"></div>
-                <Image 
+                <SmartAvatar 
                   src="/images/avatar.png" 
                   alt="Yorm Santi - Portrait" 
                   className="hero-avatar-img" 
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 720px"
-                  priority
                 />
               </div>
             </div>
@@ -608,7 +735,7 @@ export default function Home() {
                 })
                 .map((p, idx) => (
                   <article key={p.id} className="project-display-card interactive-card" onMouseMove={handleCardMouseMove}>
-                    <div className="project-display-img-wrapper" onClick={() => setActiveProject(p)}>
+                    <div className="project-display-img-wrapper" onClick={() => handleOpenProject(p)}>
                       <Image 
                         src={p.image} 
                         alt={p.title} 
@@ -623,10 +750,10 @@ export default function Home() {
                     <div className="project-display-meta">
                       <div className="project-display-index">0{idx + 1}</div>
                       <div className="project-display-info-group">
-                        <h3 className="project-display-title" onClick={() => setActiveProject(p)}>{p.title}</h3>
+                        <h3 className="project-display-title" onClick={() => handleOpenProject(p)}>{p.title}</h3>
                         <span className="project-display-category">{p.category}</span>
                       </div>
-                      <button type="button" className="project-display-link-arrow" onClick={() => setActiveProject(p)}>
+                      <button type="button" className="project-display-link-arrow" onClick={() => handleOpenProject(p)}>
                         <i className="fa-solid fa-arrow-right-long"></i>
                       </button>
                     </div>
@@ -825,6 +952,39 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* High-Contrast Interactive Tech Skill Grid (Matching User Reference) */}
+            <div className="tech-badge-grid-wrapper">
+              <div className="tech-grid-header">
+                <span className="section-subtitle">Tech Stack Grid</span>
+                <h3 className="tech-grid-title">Technologies & Frameworks</h3>
+              </div>
+              <div className="tech-badge-grid">
+                {TECH_BADGES.map((badge) => {
+                  const isSelected = selectedTechCard === badge.name;
+                  return (
+                    <button
+                      key={badge.name}
+                      type="button"
+                      className={`tech-badge-card ${isSelected ? "active" : ""}`}
+                      onClick={() => {
+                        setSelectedTechCard(badge.name);
+                        handleSelectTechFilter(badge.name);
+                      }}
+                    >
+                      <div className="tech-badge-icon-box">
+                        {badge.isCustomText ? (
+                          <span className="tech-custom-text-icon">{badge.isCustomText}</span>
+                        ) : (
+                          <i className={badge.icon}></i>
+                        )}
+                      </div>
+                      <span className="tech-badge-name">{badge.name}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -1113,34 +1273,140 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Detail Modal */}
+      {/* Enhanced Project Detail & Gallery Modal */}
       {activeProject && (
-        <div className="modal active" role="dialog">
+        <div className="modal active" role="dialog" aria-modal="true">
           <div className="modal-backdrop" onClick={() => setActiveProject(null)}></div>
           <div className="modal-wrapper">
-            <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close dialog"><i className="fa-solid fa-xmark"></i></button>
+            <button className="modal-close" onClick={() => setActiveProject(null)} aria-label="Close dialog">
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+            
             <div className="modal-body">
-              <Image 
-                src={activeProject.image} 
-                alt={activeProject.title} 
-                width={800} 
-                height={450} 
-                className="modal-hero-img" 
-              />
+              {/* Gallery Carousel & Lightbox */}
+              <div className="modal-gallery-container">
+                <div className="modal-main-img-wrapper">
+                  <Image 
+                    src={activeProject.gallery[activeImageIndex] || activeProject.image} 
+                    alt={`${activeProject.title} screenshot ${activeImageIndex + 1}`} 
+                    width={900} 
+                    height={500} 
+                    className="modal-main-img" 
+                  />
+                  {activeProject.gallery.length > 1 && (
+                    <>
+                      <button 
+                        type="button" 
+                        className="modal-nav-arrow modal-nav-prev" 
+                        onClick={() => setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : activeProject.gallery.length - 1))}
+                        aria-label="Previous screenshot"
+                      >
+                        <i className="fa-solid fa-chevron-left"></i>
+                      </button>
+                      <button 
+                        type="button" 
+                        className="modal-nav-arrow modal-nav-next" 
+                        onClick={() => setActiveImageIndex((prev) => (prev < activeProject.gallery.length - 1 ? prev + 1 : 0))}
+                        aria-label="Next screenshot"
+                      >
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </button>
+                      <span className="modal-img-counter">
+                        {activeImageIndex + 1} / {activeProject.gallery.length}
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                {/* Gallery Thumbnail Strip */}
+                {activeProject.gallery.length > 1 && (
+                  <div className="modal-thumbnails-strip">
+                    {activeProject.gallery.map((imgUrl, idx) => (
+                      <div 
+                        key={idx}
+                        className={`modal-thumb-item ${activeImageIndex === idx ? "active" : ""}`}
+                        onClick={() => setActiveImageIndex(idx)}
+                      >
+                        <Image 
+                          src={imgUrl} 
+                          alt={`Thumbnail ${idx + 1}`} 
+                          width={120} 
+                          height={70} 
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Title & Category Header */}
               <span className="modal-category">{activeProject.category}</span>
               <h3 className="modal-title">{activeProject.title}</h3>
+
+              {/* Modal Tabs Bar */}
+              <div className="modal-tabs-bar">
+                <button 
+                  type="button" 
+                  className={`modal-tab-btn ${activeModalTab === "overview" ? "active" : ""}`}
+                  onClick={() => setActiveModalTab("overview")}
+                >
+                  Overview & Specs
+                </button>
+                <button 
+                  type="button" 
+                  className={`modal-tab-btn ${activeModalTab === "features" ? "active" : ""}`}
+                  onClick={() => setActiveModalTab("features")}
+                >
+                  Key Features ({activeProject.features?.length || 0})
+                </button>
+              </div>
               
               <div className="modal-grid">
                 <div className="modal-desc">
-                  <h4>Overview</h4>
-                  <p>{activeProject.description}</p>
+                  {activeModalTab === "overview" ? (
+                    <>
+                      <h4>Project Summary</h4>
+                      <p>{activeProject.description}</p>
+
+                      {/* Performance / Project Highlights */}
+                      {activeProject.highlights && activeProject.highlights.length > 0 && (
+                        <div className="modal-highlights-grid">
+                          {activeProject.highlights.map((item, idx) => (
+                            <div key={idx} className="modal-highlight-card">
+                              <span className="modal-highlight-label">{item.label}</span>
+                              <span className="modal-highlight-val">{item.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <h4>Architecture & Key Features</h4>
+                      <div className="modal-features-list">
+                        {activeProject.features?.map((feature, idx) => (
+                          <div key={idx} className="modal-feature-item">
+                            <i className="fa-solid fa-circle-check"></i>
+                            <span>{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
                   <div className="modal-links">
-                    <a href={activeProject.demo} className="btn btn-primary" target="_blank" rel="noreferrer">Live Preview <i className="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    <a href={activeProject.repo} className="btn btn-secondary" target="_blank" rel="noreferrer">View Code <i className="fa-brands fa-github"></i></a>
+                    <a href={activeProject.demo} className="btn btn-primary" target="_blank" rel="noreferrer">
+                      Live Preview <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <a href={activeProject.repo} className="btn btn-secondary" target="_blank" rel="noreferrer">
+                      View Code <i className="fa-brands fa-github"></i>
+                    </a>
                   </div>
                 </div>
+
                 <div className="modal-meta">
-                  <h4>Details</h4>
+                  <h4>Client & Tech Stack</h4>
                   <div className="modal-meta-list">
                     <div className="modal-meta-item">
                       <span>Client</span>
