@@ -285,12 +285,17 @@ interface TechBadge {
   isCustomText?: string;
 }
 
+interface FeaturedTechKey extends TechBadge {
+  color: string;
+}
+
 const TECH_BADGES: TechBadge[] = [
   { name: "C", icon: "fa-solid fa-c", isCustomText: "C" },
   { name: "C++", icon: "fa-solid fa-code", isCustomText: "C++" },
   { name: "Java", icon: "fa-brands fa-java" },
   { name: "Python", icon: "fa-brands fa-python" },
   { name: "JavaScript", icon: "fa-brands fa-js" },
+  { name: "TypeScript", icon: "fa-solid fa-code", isCustomText: "TS" },
   { name: "React", icon: "fa-brands fa-react" },
   { name: "Next.js", icon: "fa-solid fa-n", isCustomText: "N" },
   { name: "Tailwind", icon: "fa-solid fa-wind" },
@@ -305,6 +310,13 @@ const TECH_BADGES: TechBadge[] = [
   { name: "Docker", icon: "fa-brands fa-docker" }
 ];
 
+const FEATURED_TECH_KEYS: FeaturedTechKey[] = [
+  { name: "React", icon: "fa-brands fa-react", color: "hsl(193, 95%, 68%)" },
+  { name: "Next.js", icon: "fa-solid fa-n", isCustomText: "N", color: "hsl(0, 0%, 96%)" },
+  { name: "TypeScript", icon: "fa-solid fa-code", isCustomText: "TS", color: "hsl(211, 80%, 60%)" },
+  { name: "Docker", icon: "fa-brands fa-docker", color: "hsl(217, 90%, 60%)" }
+];
+
 export default function Home() {
   // State variables
   const projects = FALLBACK_PROJECTS;
@@ -317,7 +329,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("hero");
   const statusText = "Available for Freelance & Contracts";
   const [selectedSkill, setSelectedSkill] = useState<SkillItem>(SKILLS_DATA[0].items[0]);
-  const [selectedTechCard, setSelectedTechCard] = useState<string>("C");
+  const [selectedTechCard, setSelectedTechCard] = useState<string>("TypeScript");
   
   // Contact Form State
   const [formName, setFormName] = useState("");
@@ -898,6 +910,37 @@ export default function Home() {
               <div className="tech-grid-header">
                 <span className="section-subtitle">Tech Stack Grid</span>
                 <h3 className="tech-grid-title">Technologies & Frameworks</h3>
+              </div>
+              <div className="tech-keypad-showcase" aria-label="Featured technology shortcuts">
+                <div className="tech-keypad-deck">
+                  {FEATURED_TECH_KEYS.map((badge) => {
+                    const isSelected = selectedTechCard === badge.name;
+                    return (
+                      <button
+                        key={badge.name}
+                        type="button"
+                        className={`tech-keycap ${isSelected ? "active" : ""}`}
+                        aria-pressed={isSelected}
+                        onClick={() => {
+                          setSelectedTechCard(badge.name);
+                          handleSelectTechFilter(badge.name);
+                        }}
+                        style={{ "--key-color": badge.color } as React.CSSProperties}
+                      >
+                        <span className="tech-keycap-surface">
+                          <span className="tech-keycap-icon" aria-hidden="true">
+                            {badge.isCustomText ? (
+                              <span className="tech-keycap-custom-icon">{badge.isCustomText}</span>
+                            ) : (
+                              <i className={badge.icon}></i>
+                            )}
+                          </span>
+                          <span className="tech-keycap-name">{badge.name}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
               <div className="tech-badge-grid">
                 {TECH_BADGES.map((badge) => {
