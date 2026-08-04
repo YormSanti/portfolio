@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import SmartAvatar from "@/components/SmartAvatar";
@@ -247,7 +246,7 @@ export default function About() {
                 When I am not writing code, I research new web metrics, design custom icon architectures, and explore immersive typography systems.
               </p>
 
-              <div style={{ display: "flex", gap: "1rem" }}>
+              <div className="about-hero-actions">
                 <Link href="/#contact" className="btn btn-primary">Hire Me <i className="fa-solid fa-arrow-right"></i></Link>
                 <Link href="/#projects" className="btn btn-secondary">View Work</Link>
               </div>
@@ -364,7 +363,7 @@ export default function About() {
                   gap: "2rem"
                 } as React.CSSProperties}
               >
-                <div style={{ display: "flex", gap: "1.5rem", alignItems: "start" }}>
+                <div className="journey-card-content">
                   <div className="skills-card-icon" style={{ flexShrink: 0, color: item.type === "work" ? "var(--accent-red)" : "var(--text-muted)" }}>
                     <i className={item.type === "work" ? "fa-solid fa-briefcase" : "fa-solid fa-graduation-cap"}></i>
                   </div>
