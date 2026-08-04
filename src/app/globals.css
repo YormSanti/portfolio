@@ -329,6 +329,14 @@ h1, h2, h3, h4 {
     transform: translateY(-3px);
 }
 
+.btn i {
+    transition: transform var(--transition-normal), color var(--transition-fast);
+}
+
+.btn:hover i {
+    transform: translateX(4px) scale(1.08);
+}
+
 /* --- NAVBAR --- */
 .navbar {
     position: fixed;
@@ -768,6 +776,8 @@ h1, h2, h3, h4 {
 .badge-star-icon {
     font-size: 1.25rem;
     color: var(--accent-red);
+    filter: drop-shadow(0 0 8px rgba(211, 24, 24, 0.35));
+    animation: icon-breathe 2.6s ease-in-out infinite;
 }
 
 .hero-metrics-list {
@@ -1135,6 +1145,51 @@ h1, h2, h3, h4 {
     border-radius: 12px;
     background: var(--input-bg);
     border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.skills-card-icon::after,
+.tech-badge-icon-box::after,
+.inspector-icon-wrapper::after,
+.orbit-center-icon-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    background: conic-gradient(from 180deg, transparent, currentColor, transparent 32%);
+    opacity: 0;
+    transform: rotate(0deg) scale(0.72);
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+    pointer-events: none;
+}
+
+.skills-card-icon i,
+.tech-badge-icon-box i,
+.tech-custom-text-icon,
+.inspector-icon-wrapper i,
+.orbit-center-icon-wrapper i,
+.info-icon,
+.process-step-circle i,
+.btn-arrow-icon {
+    position: relative;
+    z-index: 1;
+    transform-origin: center;
+}
+
+.skills-category-card:hover .skills-card-icon {
+    transform: translateY(-3px) rotate(-6deg);
+    border-color: color-mix(in srgb, var(--category-color, var(--accent-red)) 50%, transparent);
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--category-color, var(--accent-red)) 18%, transparent);
+}
+
+.skills-category-card:hover .skills-card-icon::after {
+    opacity: 0.2;
+    transform: rotate(160deg) scale(1);
+}
+
+.skills-category-card:hover .skills-card-icon i {
+    animation: icon-pop 0.58s cubic-bezier(0.2, 1.5, 0.36, 1);
 }
 
 .skills-category-header h3 {
@@ -1184,13 +1239,19 @@ h1, h2, h3, h4 {
 .skill-item-mini-icon {
     font-size: 1rem;
     color: var(--text-secondary);
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), transform var(--transition-fast), filter var(--transition-fast);
     flex-shrink: 0;
 }
 
 .skill-item-row:hover .skill-item-mini-icon,
 .skill-item-row.active .skill-item-mini-icon {
     color: var(--accent-red);
+    transform: translateY(-1px) scale(1.16);
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--skill-color, var(--accent-red)) 55%, transparent));
+}
+
+.skill-item-row.active .skill-item-mini-icon {
+    animation: icon-breathe 2.4s ease-in-out infinite;
 }
 
 .skill-item-title {
@@ -1312,6 +1373,7 @@ h1, h2, h3, h4 {
 
 .orbit-item:hover .orbit-item-icon-wrapper {
     color: var(--brand-color);
+    animation: orbit-counter-revolution 40s linear infinite, icon-pop 0.55s cubic-bezier(0.2, 1.5, 0.36, 1);
 }
 
 .orbit-item.active {
@@ -1323,6 +1385,7 @@ h1, h2, h3, h4 {
 
 .orbit-item.active .orbit-item-icon-wrapper {
     color: #000;
+    animation: orbit-counter-revolution 40s linear infinite, icon-breathe 2.4s ease-in-out infinite;
 }
 
 .orbit-wrapper:hover .orbit-ring,
@@ -1363,7 +1426,19 @@ h1, h2, h3, h4 {
     font-size: 2.8rem;
     color: var(--active-color);
     z-index: 2;
-    transition: color var(--transition-normal);
+    position: relative;
+    transition: color var(--transition-normal), transform var(--transition-normal);
+    animation: icon-float 3.8s ease-in-out infinite;
+}
+
+.orbit-center:hover .orbit-center-icon-wrapper {
+    animation: none;
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.orbit-center:hover .orbit-center-icon-wrapper::after {
+    opacity: 0.16;
+    transform: rotate(180deg) scale(1);
 }
 
 /* Skills Inspector Panel */
@@ -1433,6 +1508,24 @@ h1, h2, h3, h4 {
     border: 1px solid var(--border-light);
     font-size: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.skills-inspector-card:hover .inspector-icon-wrapper {
+    transform: translateY(-2px) rotate(4deg);
+    border-color: color-mix(in srgb, var(--active-color) 45%, transparent);
+    box-shadow: 0 12px 28px color-mix(in srgb, var(--active-color) 18%, transparent);
+}
+
+.skills-inspector-card:hover .inspector-icon-wrapper::after {
+    opacity: 0.16;
+    transform: rotate(160deg) scale(1);
+}
+
+.skills-inspector-card:hover .inspector-icon-wrapper i {
+    animation: icon-pop 0.58s cubic-bezier(0.2, 1.5, 0.36, 1);
 }
 
 .inspector-title-group {
@@ -1797,6 +1890,10 @@ h1, h2, h3, h4 {
     transform: scale(1.1);
 }
 
+.process-vertical-step:hover .process-step-circle i {
+    animation: icon-pop 0.56s cubic-bezier(0.2, 1.5, 0.36, 1);
+}
+
 .process-step-line {
     width: 1px;
     flex-grow: 1;
@@ -2001,6 +2098,12 @@ h1, h2, h3, h4 {
 .info-icon {
     font-size: 1.15rem;
     color: var(--accent-red);
+    transition: transform var(--transition-normal), filter var(--transition-normal);
+}
+
+.contact-info-item:hover .info-icon {
+    transform: translateY(-2px) scale(1.14) rotate(-6deg);
+    filter: drop-shadow(0 0 10px rgba(211, 24, 24, 0.35));
 }
 
 .info-text-group span {
@@ -2594,7 +2697,8 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform var(--transition-fast);
+    position: relative;
+    transition: transform var(--transition-normal), filter var(--transition-normal);
 }
 
 .tech-custom-text-icon {
@@ -2629,6 +2733,28 @@ h1, h2, h3, h4 {
 .tech-badge-card:hover .tech-custom-text-icon,
 .tech-badge-card.active .tech-custom-text-icon {
     color: var(--tech-card-hover-text);
+}
+
+.tech-badge-card:hover .tech-badge-icon-box,
+.tech-badge-card.active .tech-badge-icon-box {
+    transform: translateY(-4px) scale(1.1);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.18));
+}
+
+.tech-badge-card:hover .tech-badge-icon-box i,
+.tech-badge-card:hover .tech-custom-text-icon {
+    animation: icon-wiggle 0.7s cubic-bezier(0.2, 1.4, 0.36, 1);
+}
+
+.tech-badge-card.active .tech-badge-icon-box i,
+.tech-badge-card.active .tech-custom-text-icon {
+    animation: icon-breathe 2.5s ease-in-out infinite;
+}
+
+.tech-badge-card:hover .tech-badge-icon-box::after,
+.tech-badge-card.active .tech-badge-icon-box::after {
+    opacity: 0.12;
+    transform: rotate(170deg) scale(1);
 }
 
 .about-hero-actions {
@@ -2676,6 +2802,51 @@ h1, h2, h3, h4 {
 
 .animate-spin-slow {
     animation: spin 15s linear infinite;
+}
+
+@keyframes icon-pop {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    45% {
+        transform: scale(1.22) rotate(-8deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes icon-wiggle {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        transform: rotate(-8deg) scale(1.12);
+    }
+    55% {
+        transform: rotate(7deg) scale(1.08);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes icon-breathe {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+@keyframes icon-float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-5px) rotate(3deg);
+    }
 }
 
 @keyframes pulse {
@@ -3321,6 +3492,10 @@ h1, h2, h3, h4 {
     transform: translateY(-3px);
 }
 
+.footer-socials a:hover i {
+    animation: icon-wiggle 0.66s cubic-bezier(0.2, 1.4, 0.36, 1);
+}
+
 .footer-bottom {
     border-top: 1px solid var(--border-light);
     padding-top: 2rem;
@@ -3352,6 +3527,14 @@ h1, h2, h3, h4 {
     color: var(--accent-red);
 }
 
+.footer-bottom .back-to-top i {
+    transition: transform var(--transition-normal);
+}
+
+.footer-bottom .back-to-top:hover i {
+    transform: translateY(-3px);
+}
+
 @media (max-width: 768px) {
     .footer-grid {
         grid-template-columns: 1fr;
@@ -3372,5 +3555,22 @@ h1, h2, h3, h4 {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn i,
+    .badge-star-icon,
+    .skills-card-icon i,
+    .skill-item-mini-icon,
+    .orbit-item-icon-wrapper,
+    .orbit-center-icon-wrapper,
+    .inspector-icon-wrapper i,
+    .tech-badge-icon-box i,
+    .tech-custom-text-icon,
+    .process-step-circle i,
+    .footer-socials a i {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
     }
 }
